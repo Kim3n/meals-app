@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:meals/providers/language_provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class MainDrawer extends StatelessWidget {
-  const MainDrawer({super.key, required this.onSelectScreen});
+class MainDrawer extends StatefulWidget {
+  const MainDrawer({Key? key, required this.onSelectScreen}) : super(key: key);
 
   final void Function(String identifier) onSelectScreen;
 
+  @override
+  State<MainDrawer> createState() => _MainDrawerState();
+}
+
+class _MainDrawerState extends State<MainDrawer> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -13,10 +20,11 @@ class MainDrawer extends StatelessWidget {
           DrawerHeader(
             padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
-                gradient: LinearGradient(colors: [
-              Theme.of(context).colorScheme.primaryContainer,
-              Theme.of(context).colorScheme.primaryContainer.withOpacity(0.8)
-            ], begin: Alignment.topLeft, end: Alignment.bottomRight)),
+              gradient: LinearGradient(colors: [
+                Theme.of(context).colorScheme.primaryContainer,
+                Theme.of(context).colorScheme.primaryContainer.withOpacity(0.8),
+              ], begin: Alignment.topLeft, end: Alignment.bottomRight),
+            ),
             child: Row(
               children: [
                 Icon(
@@ -33,7 +41,7 @@ class MainDrawer extends StatelessWidget {
                       .textTheme
                       .titleLarge!
                       .copyWith(color: Theme.of(context).colorScheme.primary),
-                )
+                ),
               ],
             ),
           ),
@@ -50,7 +58,7 @@ class MainDrawer extends StatelessWidget {
                   fontSize: 24),
             ),
             onTap: () {
-              onSelectScreen("meals");
+              widget.onSelectScreen("meals");
             },
           ),
           ListTile(
@@ -66,9 +74,49 @@ class MainDrawer extends StatelessWidget {
                   fontSize: 24),
             ),
             onTap: () {
-              onSelectScreen("filters");
+              widget.onSelectScreen("filters");
             },
           ),
+          Consumer(
+            builder: (context, ref, child) {
+              final languageState = ref.read(languageProvider);
+
+              return Row(
+                children: <Widget>[
+                  const SizedBox(width: 18),
+                  Icon(
+                    Icons.flag,
+                    size: 26,
+                    color: Theme.of(context).colorScheme.background,
+                  ),
+                  Text(
+                    "EN",
+                    style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                        color: Theme.of(context).colorScheme.onBackground,
+                        fontSize: 24),
+                  ),
+                  Switch(
+                    value: languageState,
+                    onChanged: (bool newValue) {
+                      // Handle the language change here using newValue
+                      ref
+                          .read(languageProvider.notifier)
+                          .toggleLanguage(newValue);
+                    },
+                  ),
+                  Text(
+                    "NO",
+                    style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                        color: Theme.of(context).colorScheme.onBackground,
+                        fontSize: 24),
+                  ),
+                  Expanded(
+                    child: Container(),
+                  ),
+                ],
+              );
+            },
+          )
         ],
       ),
     );
