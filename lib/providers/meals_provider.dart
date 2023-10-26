@@ -5,7 +5,7 @@ import 'package:meals/providers/language_provider.dart';
 final mealsProvider = Provider((ref) {
   final language = ref.watch(languageProvider);
 
-  if (language) {
+  if (!language) {
     return dummyMeals;
   } else {
     return dummyMealsNO;
