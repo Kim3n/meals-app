@@ -49,7 +49,7 @@ class _MainDrawerState extends State<MainDrawer> {
             leading: Icon(
               Icons.restaurant,
               size: 26,
-              color: Theme.of(context).colorScheme.background,
+              color: Theme.of(context).colorScheme.onBackground,
             ),
             title: Text(
               "Meals",
@@ -65,7 +65,7 @@ class _MainDrawerState extends State<MainDrawer> {
             leading: Icon(
               Icons.settings,
               size: 26,
-              color: Theme.of(context).colorScheme.background,
+              color: Theme.of(context).colorScheme.onBackground,
             ),
             title: Text(
               "Filters",
@@ -87,7 +87,7 @@ class _MainDrawerState extends State<MainDrawer> {
                   Icon(
                     Icons.flag,
                     size: 26,
-                    color: Theme.of(context).colorScheme.background,
+                    color: Theme.of(context).colorScheme.onBackground,
                   ),
                   Text(
                     "EN",

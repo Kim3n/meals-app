@@ -38,6 +38,7 @@ dependencies:
   google_fonts: ^4.0.3
   transparent_image: ^2.0.1
   flutter_riverpod: ^2.4.4
+  dcdg: ^4.1.0
 
 dev_dependencies:
   flutter_test:
